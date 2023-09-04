@@ -1,16 +1,16 @@
 # chews
 
-A new Flutter project.
-
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+**Firebase**
+- [Adding Firebase to Flutter App](https://firebase.google.com/docs/flutter/setup)
+- [Firebase API Keys](https://firebase.google.com/docs/projects/api-keys#apply-restrictions)
+  - NOTE: We can include Firebase API Keys in our repository without ignoring them. 
 
-A few resources to get you started if this is your first Flutter project:
 
+**Flutter Resources**
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- [Online Documentation](https://docs.flutter.dev/)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+

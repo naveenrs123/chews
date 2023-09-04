@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>484287344456-bu5r920fj6rfh5efljh72lg1i1rbl369.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.484287344456-bu5r920fj6rfh5efljh72lg1i1rbl369</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDGu5VGmG8lBg5_1yxC_WrcY1-OpSF3hYs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>484287344456</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.chews</string>
+	<key>PROJECT_ID</key>
+	<string>chews-org</string>
+	<key>STORAGE_BUCKET</key>
+	<string>chews-org.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:484287344456:ios:16bdf22459f2bdbc890d7d</string>
+</dict>
+</plist>

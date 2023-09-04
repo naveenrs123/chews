@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "484287344456",
+    "project_id": "chews-org",
+    "storage_bucket": "chews-org.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484287344456:android:444025a5e4881597890d7d",
+        "android_client_info": {
+          "package_name": "com.example.chews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484287344456-9hcu4fjshssktjsohmi6p7pit29crssl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf94-rH5P0C-K7Ws8rizAvkmCp-_b0oHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "484287344456-9hcu4fjshssktjsohmi6p7pit29crssl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
