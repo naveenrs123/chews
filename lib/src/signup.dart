@@ -3,10 +3,10 @@ import 'package:chews/src/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
 
-  static const routeName = '/login';
+  static const routeName = '/signup';
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +30,12 @@ class LoginPage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(bottom: 64),
                     child: Text(
-                      "Log In",
+                      "Sign Up",
                       style:
                           TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  LoginForm(),
+                  SignUpForm(),
                 ],
               )),
             ),
@@ -44,14 +44,14 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+class SignUpForm extends StatefulWidget {
+  const SignUpForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<SignUpForm> createState() => _SignUpFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _SignUpFormState extends State<SignUpForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
@@ -82,8 +82,8 @@ class _LoginFormState extends State<LoginForm> {
           Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: TextFormField(
-              controller: _passwordController,
               obscureText: true,
+              controller: _passwordController,
               decoration: const InputDecoration(
                 hintText: 'Enter your password',
               ),
@@ -96,6 +96,26 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ),
           Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: TextFormField(
+              obscureText: true,
+              decoration: const InputDecoration(
+                hintText: 'Confirm your password',
+              ),
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Password cannot be empty';
+                }
+
+                if (_passwordController.text != value) {
+                  return 'Passwords must match';
+                }
+
+                return null;
+              },
+            ),
+          ),
+          Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: ElevatedButton(
               onPressed: () async {
@@ -103,14 +123,14 @@ class _LoginFormState extends State<LoginForm> {
                 // the form is invalid.
                 if (_formKey.currentState!.validate()) {
                   try {
-                    final _ = await FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
+                    final credential = await FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
                             email: _usernameController.text.trim(),
                             password: _passwordController.text.trim());
 
                     if (!context.mounted) return;
 
-                    Navigator.pushReplacementNamed(
+                    Navigator.restorablePushReplacementNamed(
                         context, SampleItemListView.routeName);
                   } on FirebaseAuthException catch (e) {
                     if (e.code == 'invalid-email') {
