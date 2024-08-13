@@ -1,6 +1,9 @@
-import 'package:chews/src/login.dart';
-import 'package:chews/src/signup.dart';
-import 'package:chews/src/welcome.dart';
+import 'package:chews/src/pages/home.dart';
+import 'package:chews/src/pages/login.dart';
+import 'package:chews/src/pages/onboarding.dart';
+import 'package:chews/src/pages/route_constants.dart';
+import 'package:chews/src/pages/signup.dart';
+import 'package:chews/src/pages/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -76,11 +79,15 @@ class MyApp extends StatelessWidget {
                     return const SampleItemDetailsView();
                   case SampleItemListView.routeName:
                     return const SampleItemListView();
-                  case LoginPage.routeName:
+                  case RouteConstants.login:
                     return const LoginPage();
-                  case SignUpPage.routeName:
+                  case RouteConstants.signUp:
                     return const SignUpPage();
-                  case WelcomePage.routeName:
+                  case RouteConstants.home:
+                    return const HomePage();
+                  case RouteConstants.onboarding:
+                    return const OnboardingPage();
+                  case RouteConstants.welcome:
                   default:
                     return const WelcomePage();
                 }

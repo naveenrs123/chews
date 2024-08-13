@@ -1,19 +1,16 @@
-import 'package:chews/src/login.dart';
 import 'package:chews/src/login_and_sign_up/email_text_field.dart';
+import 'package:chews/src/pages/route_constants.dart';
 import 'package:chews/src/sample_feature/sample_item_list_view.dart';
-import 'package:chews/src/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as dev;
 import 'package:logging/logging.dart';
 
-import 'login_and_sign_up/password_text_field.dart';
+import '../login_and_sign_up/password_text_field.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
-
-  static const routeName = '/signup';
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +19,7 @@ class SignUpPage extends StatelessWidget {
             leading: IconButton(
                 onPressed: () {
                   Navigator.restorablePopAndPushNamed(
-                      context, WelcomePage.routeName);
+                      context, RouteConstants.welcome);
                 },
                 icon: const Icon(Icons.arrow_back))),
         body: const SafeArea(
@@ -37,7 +34,7 @@ class SignUpPage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(bottom: 64),
                     child: Text(
-                      "Sign Up",
+                      'Sign Up',
                       style:
                           TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
@@ -115,7 +112,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   } catch (e) {
                     setState(() {
                       _authValidationMessage =
-                          "Sorry, we encountered an unexpected error during sign-up. Please contact support.";
+                          'Sorry, we encountered an unexpected error during sign-up. Please contact support.';
                     });
 
                     if (kDebugMode) {
@@ -136,16 +133,16 @@ class _SignUpFormState extends State<SignUpForm> {
   }
 
   String processSignUpError(FirebaseAuthException e) {
-    String message = "";
+    String message = '';
 
     switch (e.code) {
-      case "operation-not-allowed":
+      case 'operation-not-allowed':
         message =
-            "Sorry, we encountered an unexpected error during sign-up. Please contact support.";
+            'Sorry, we encountered an unexpected error during sign-up. Please contact support.';
         break;
-      case "too-many-requests":
+      case 'too-many-requests':
         message =
-            "You have attempted to sign-up too many times. Please wait before trying again.";
+            'You have attempted to sign-up too many times. Please wait before trying again.';
       default:
         message = e.message ?? e.code;
     }

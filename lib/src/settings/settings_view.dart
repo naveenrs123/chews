@@ -1,4 +1,4 @@
-import 'package:chews/src/welcome.dart';
+import 'package:chews/src/pages/route_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +28,7 @@ class SettingsView extends StatelessWidget {
                 if (!context.mounted) return;
 
                 Navigator.restorablePushReplacementNamed(
-                    context, WelcomePage.routeName);
+                    context, RouteConstants.welcome);
               },
               icon: const Icon(Icons.logout))
         ],

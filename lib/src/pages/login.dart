@@ -1,19 +1,18 @@
+import 'package:chews/src/pages/home.dart';
+import 'package:chews/src/pages/route_constants.dart';
 import 'package:chews/src/sample_feature/sample_item_list_view.dart';
-import 'package:chews/src/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as dev;
 import 'package:logging/logging.dart';
 
-import 'login_and_sign_up/auth_validation_message.dart';
-import 'login_and_sign_up/email_text_field.dart';
-import 'login_and_sign_up/password_text_field.dart';
+import '../login_and_sign_up/auth_validation_message.dart';
+import '../login_and_sign_up/email_text_field.dart';
+import '../login_and_sign_up/password_text_field.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
-
-  static const routeName = '/login';
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,7 @@ class LoginPage extends StatelessWidget {
             leading: IconButton(
                 onPressed: () {
                   Navigator.restorablePopAndPushNamed(
-                      context, WelcomePage.routeName);
+                      context, RouteConstants.welcome);
                 },
                 icon: const Icon(Icons.arrow_back))),
         body: const SafeArea(
@@ -37,7 +36,7 @@ class LoginPage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(bottom: 64),
                     child: Text(
-                      "Log In",
+                      'Log In',
                       style:
                           TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
@@ -79,14 +78,20 @@ class _LoginFormState extends State<LoginForm> {
             // the form is invalid.
             if (_formKey.currentState!.validate()) {
               try {
-                await FirebaseAuth.instance.signInWithEmailAndPassword(
-                    email: _usernameController.text.trim(),
-                    password: _passwordController.text.trim());
+                var userCredential = await FirebaseAuth.instance
+                    .signInWithEmailAndPassword(
+                        email: _usernameController.text.trim(),
+                        password: _passwordController.text.trim());
 
                 if (!context.mounted) return;
 
-                Navigator.pushReplacementNamed(
-                    context, SampleItemListView.routeName);
+                var user = userCredential.user;
+                if (user != null && (user.displayName?.isNotEmpty ?? false)) {
+                  Navigator.pushReplacementNamed(context, RouteConstants.home);
+                } else {
+                  Navigator.pushReplacementNamed(
+                      context, RouteConstants.onboarding);
+                }
               } on FirebaseAuthException catch (e) {
                 String message = processLoginError(e);
 
@@ -96,7 +101,7 @@ class _LoginFormState extends State<LoginForm> {
               } catch (e) {
                 setState(() {
                   _authValidationMessage =
-                      "Sorry, we encountered an unexpected error during login. Please contact support.";
+                      'Sorry, we encountered an unexpected error during login. Please contact support.';
                 });
 
                 if (kDebugMode) {
@@ -124,12 +129,12 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   String processLoginError(FirebaseAuthException e) {
-    String message = "";
+    String message = '';
 
     switch (e.code) {
-      case "too-many-requests":
+      case 'too-many-requests':
         message =
-            "You have attempted to login too many times. Please wait before trying again.";
+            'You have attempted to login too many times. Please wait before trying again.';
       default:
         message = e.message ?? e.code;
     }
