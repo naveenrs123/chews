@@ -1,10 +1,9 @@
-import 'package:chews/src/pages/home.dart';
+import 'dart:developer' as dev;
+
 import 'package:chews/src/pages/route_constants.dart';
-import 'package:chews/src/sample_feature/sample_item_list_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer' as dev;
 import 'package:logging/logging.dart';
 
 import '../login_and_sign_up/auth_validation_message.dart';

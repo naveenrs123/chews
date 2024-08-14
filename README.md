@@ -28,3 +28,9 @@ the `lib/src/localization` directory.
 To support additional languages, please visit the tutorial on
 [Internationalizing Flutter
 apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
+
+## Firebase
+Instructions can be found [here](https://firebase.google.com/docs/flutter/setup).
+
+### Authentication
+https://firebase.google.com/docs/auth/flutter/start

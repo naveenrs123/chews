@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class PasswordTextField extends StatelessWidget {
+  final TextEditingController _controller;
+  final TextEditingController? _confirmController;
+
   const PasswordTextField({
     super.key,
     required TextEditingController controller,
     TextEditingController? confirmController,
   })  : _controller = controller,
         _confirmController = confirmController;
-
-  final TextEditingController _controller;
-  final TextEditingController? _confirmController;
 
   @override
   Widget build(BuildContext context) {

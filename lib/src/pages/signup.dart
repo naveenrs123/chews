@@ -1,10 +1,11 @@
+import 'dart:developer' as dev;
+
+import 'package:chews/src/login_and_sign_up/auth_validation_message.dart';
 import 'package:chews/src/login_and_sign_up/email_text_field.dart';
 import 'package:chews/src/pages/route_constants.dart';
-import 'package:chews/src/sample_feature/sample_item_list_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer' as dev;
 import 'package:logging/logging.dart';
 
 import '../login_and_sign_up/password_text_field.dart';
@@ -78,13 +79,7 @@ class _SignUpFormState extends State<SignUpForm> {
             controller: _confirmPasswordController,
             confirmController: _passwordController,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Text(
-              _authValidationMessage,
-              style: const TextStyle(color: Colors.red),
-            ),
-          ),
+          AuthValidationMessage(message: _authValidationMessage),
           Padding(
             padding: const EdgeInsets.only(top: 32, bottom: 16),
             child: ElevatedButton(
@@ -102,8 +97,8 @@ class _SignUpFormState extends State<SignUpForm> {
 
                     if (!context.mounted) return;
 
-                    Navigator.restorablePushReplacementNamed(
-                        context, SampleItemListView.routeName);
+                    Navigator.pushReplacementNamed(
+                        context, RouteConstants.onboarding);
                   } on FirebaseAuthException catch (e) {
                     String message = processSignUpError(e);
                     setState(() {

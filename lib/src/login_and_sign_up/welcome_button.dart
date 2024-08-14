@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 class WelcomeButton extends StatelessWidget {
-  final String text;
-  final String route;
+  final String _text;
+  final String _route;
 
   const WelcomeButton({
-    required this.text,
-    required this.route,
     super.key,
-  });
+    required String text,
+    required String route,
+  })  : _text = text,
+        _route = route;
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +17,9 @@ class WelcomeButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: ElevatedButton(
           onPressed: () {
-            Navigator.restorablePushNamed(context, route);
+            Navigator.restorablePushNamed(context, _route);
           },
-          child: Text(text)),
+          child: Text(_text)),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:chews/src/pages/home.dart';
 import 'package:chews/src/pages/login.dart';
 import 'package:chews/src/pages/onboarding.dart';
+import 'package:chews/src/pages/reset_password.dart';
 import 'package:chews/src/pages/route_constants.dart';
 import 'package:chews/src/pages/signup.dart';
 import 'package:chews/src/pages/welcome.dart';
@@ -8,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'sample_feature/sample_item_details_view.dart';
-import 'sample_feature/sample_item_list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
@@ -73,12 +72,8 @@ class MyApp extends StatelessWidget {
               settings: routeSettings,
               builder: (BuildContext context) {
                 switch (routeSettings.name) {
-                  case SettingsView.routeName:
+                  case RouteConstants.settings:
                     return SettingsView(controller: settingsController);
-                  case SampleItemDetailsView.routeName:
-                    return const SampleItemDetailsView();
-                  case SampleItemListView.routeName:
-                    return const SampleItemListView();
                   case RouteConstants.login:
                     return const LoginPage();
                   case RouteConstants.signUp:
@@ -87,6 +82,8 @@ class MyApp extends StatelessWidget {
                     return const HomePage();
                   case RouteConstants.onboarding:
                     return const OnboardingPage();
+                  case RouteConstants.resetPassword:
+                    return const ResetPasswordPage();
                   case RouteConstants.welcome:
                   default:
                     return const WelcomePage();

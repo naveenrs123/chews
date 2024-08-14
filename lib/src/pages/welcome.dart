@@ -7,27 +7,35 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 64),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 64),
           child: Center(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(bottom: 64),
+                padding: const EdgeInsets.only(bottom: 64),
                 child: Column(
                   children: [
-                    Text(
-                      "Welcome to Chews!",
+                    const Text(
+                      'Welcome to Chews!',
                       style:
                           TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
-                    WelcomeButton(text: "Log In", route: RouteConstants.login),
-                    WelcomeButton(text: "Sign Up", route: RouteConstants.signUp)
+                    const WelcomeButton(
+                        text: 'Log In', route: RouteConstants.login),
+                    const WelcomeButton(
+                        text: 'Sign Up', route: RouteConstants.signUp),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.restorablePushNamed(
+                              context, RouteConstants.resetPassword);
+                        },
+                        child: const Text('Forgot your password?')),
                   ],
                 ),
               ),
