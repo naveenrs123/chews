@@ -6,9 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
-import '../login_and_sign_up/auth_validation_message.dart';
-import '../login_and_sign_up/email_text_field.dart';
-import '../login_and_sign_up/password_text_field.dart';
+import '../form_components/auth_validation_message.dart';
+import '../form_components/form_text_field.dart';
+import '../form_components/password_text_field.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -59,14 +59,14 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   String _authValidationMessage = '';
 
   @override
   Widget build(BuildContext context) {
     var list = [
-      EmailTextField(controller: _usernameController),
+      FormTextField(controller: _emailController),
       PasswordTextField(controller: _passwordController),
       AuthValidationMessage(message: _authValidationMessage),
       Padding(
@@ -79,7 +79,7 @@ class _LoginFormState extends State<LoginForm> {
               try {
                 var userCredential = await FirebaseAuth.instance
                     .signInWithEmailAndPassword(
-                        email: _usernameController.text.trim(),
+                        email: _emailController.text.trim(),
                         password: _passwordController.text.trim());
 
                 if (!context.mounted) return;

@@ -6,4 +6,5 @@ final class RouteConstants {
   static const onboarding = '/onboarding';
   static const settings = '/settings';
   static const resetPassword = '/resetPassword';
+  static const confirmReset = '/confirmReset';
 }

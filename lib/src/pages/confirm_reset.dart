@@ -2,14 +2,15 @@ import 'dart:developer' as dev;
 
 import 'package:chews/src/form_components/auth_validation_message.dart';
 import 'package:chews/src/form_components/form_text_field.dart';
+import 'package:chews/src/form_components/password_text_field.dart';
 import 'package:chews/src/pages/route_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
-class ResetPasswordPage extends StatelessWidget {
-  const ResetPasswordPage({super.key});
+class ConfirmResetPage extends StatelessWidget {
+  const ConfirmResetPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +34,11 @@ class ResetPasswordPage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(bottom: 64),
                   child: Text(
-                    'Send Password Reset Email',
+                    'Confirm Reset Code',
                     style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                   ),
                 ),
-                ResetPasswordForm()
+                ConfirmResetForm()
               ],
             )),
           ),
@@ -47,23 +48,35 @@ class ResetPasswordPage extends StatelessWidget {
   }
 }
 
-class ResetPasswordForm extends StatefulWidget {
-  const ResetPasswordForm({super.key});
+class ConfirmResetForm extends StatefulWidget {
+  const ConfirmResetForm({super.key});
 
   @override
-  State<ResetPasswordForm> createState() => _ResetPasswordFormState();
+  State<ConfirmResetForm> createState() => _ConfirmResetFormState();
 }
 
-class _ResetPasswordFormState extends State<ResetPasswordForm> {
+class _ConfirmResetFormState extends State<ConfirmResetForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _codeController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   String _authValidationMessage = '';
 
   @override
   Widget build(BuildContext context) {
     var list = [
-      FormTextField(controller: _emailController),
+      FormTextField(
+        controller: _codeController,
+        hintText: 'Enter the confirmation code',
+        emptyValidationText: 'Code cannot be empty',
+      ),
+      PasswordTextField(controller: _confirmPasswordController),
+      PasswordTextField(
+        controller: _passwordController,
+        confirmController: _confirmPasswordController,
+      ),
       AuthValidationMessage(message: _authValidationMessage),
       Padding(
         padding: const EdgeInsets.only(top: 32, bottom: 16),
@@ -73,13 +86,14 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
             // the form is invalid.
             if (_formKey.currentState!.validate()) {
               try {
-                await FirebaseAuth.instance.sendPasswordResetEmail(
-                    email: _emailController.text.trim());
+                await FirebaseAuth.instance.confirmPasswordReset(
+                    code: _codeController.text.trim(),
+                    newPassword: _passwordController.text.trim());
 
                 if (!context.mounted) return;
 
                 Navigator.restorablePushReplacementNamed(
-                    context, RouteConstants.confirmReset);
+                    context, RouteConstants.login);
               } on FirebaseAuthException catch (e) {
                 setState(() {
                   _authValidationMessage = e.message ?? e.code;
@@ -87,7 +101,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
               } catch (e) {
                 setState(() {
                   _authValidationMessage =
-                      'Sorry, we encountered an unexpected error during login. Please contact support.';
+                      'Sorry, we encountered an unexpected error. Please contact support.';
                 });
 
                 if (kDebugMode) {

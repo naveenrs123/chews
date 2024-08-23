@@ -18,8 +18,10 @@ class PasswordTextField extends StatelessWidget {
       child: TextFormField(
         controller: _controller,
         obscureText: true,
-        decoration: const InputDecoration(
-          hintText: 'Enter your password',
+        decoration: InputDecoration(
+          hintText: _confirmController != null
+              ? 'Confirm your password'
+              : 'Enter your password',
         ),
         validator: (String? value) {
           if (value == null || value.isEmpty) {

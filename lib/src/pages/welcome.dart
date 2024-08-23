@@ -1,6 +1,6 @@
 import 'package:chews/src/pages/route_constants.dart';
 import 'package:flutter/material.dart';
-import '../login_and_sign_up/welcome_button.dart';
+import '../form_components/welcome_button.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});

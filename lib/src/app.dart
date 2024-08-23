@@ -1,3 +1,4 @@
+import 'package:chews/src/pages/confirm_reset.dart';
 import 'package:chews/src/pages/home.dart';
 import 'package:chews/src/pages/login.dart';
 import 'package:chews/src/pages/onboarding.dart';
@@ -84,6 +85,8 @@ class MyApp extends StatelessWidget {
                     return const OnboardingPage();
                   case RouteConstants.resetPassword:
                     return const ResetPasswordPage();
+                  case RouteConstants.confirmReset:
+                    return const ConfirmResetPage();
                   case RouteConstants.welcome:
                   default:
                     return const WelcomePage();

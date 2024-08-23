@@ -1,14 +1,14 @@
 import 'dart:developer' as dev;
 
-import 'package:chews/src/login_and_sign_up/auth_validation_message.dart';
-import 'package:chews/src/login_and_sign_up/email_text_field.dart';
+import 'package:chews/src/form_components/auth_validation_message.dart';
+import 'package:chews/src/form_components/form_text_field.dart';
 import 'package:chews/src/pages/route_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
-import '../login_and_sign_up/password_text_field.dart';
+import '../form_components/password_text_field.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
@@ -73,7 +73,7 @@ class _SignUpFormState extends State<SignUpForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          EmailTextField(controller: _usernameController),
+          FormTextField(controller: _usernameController),
           PasswordTextField(controller: _passwordController),
           PasswordTextField(
             controller: _confirmPasswordController,
