@@ -11,7 +11,7 @@ class AuthValidationMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.only(bottom: 16),
       child: Text(
         _message,
         style: const TextStyle(color: Colors.red),

@@ -1,4 +1,5 @@
 import 'package:chews/src/pages/route_constants.dart';
+import 'package:chews/src/pages/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,12 @@ class SettingsView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         actions: [
           IconButton(
               onPressed: () async {
@@ -25,8 +32,10 @@ class SettingsView extends StatelessWidget {
 
                 if (!context.mounted) return;
 
-                Navigator.restorablePushReplacementNamed(
-                    context, RouteConstants.welcome);
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const WelcomePage()));
               },
               icon: const Icon(Icons.logout))
         ],

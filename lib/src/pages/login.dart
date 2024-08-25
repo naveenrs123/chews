@@ -1,6 +1,7 @@
 import 'dart:developer' as dev;
 
-import 'package:chews/src/pages/route_constants.dart';
+import 'package:chews/src/pages/home.dart';
+import 'package:chews/src/pages/onboarding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,31 +20,28 @@ class LoginPage extends StatelessWidget {
         appBar: AppBar(
             leading: IconButton(
                 onPressed: () {
-                  Navigator.restorablePopAndPushNamed(
-                      context, RouteConstants.welcome);
+                  Navigator.pop(context);
                 },
                 icon: const Icon(Icons.arrow_back))),
-        body: const SafeArea(
-          child: SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 64),
-              child: Center(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 64),
-                    child: Text(
-                      'Log In',
-                      style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  LoginForm(),
-                ],
-              )),
-            ),
+        body: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 64),
+            child: Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 64),
+                  child: Text('Log In',
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                          fontFamily: 'SunnySpells',
+                          fontSize: 72,
+                          color: const Color(0xFFFF707C))),
+                ),
+                const LoginForm(),
+              ],
+            )),
           ),
         ));
   }
@@ -69,50 +67,53 @@ class _LoginFormState extends State<LoginForm> {
       FormTextField(controller: _emailController),
       PasswordTextField(controller: _passwordController),
       AuthValidationMessage(message: _authValidationMessage),
-      Padding(
-        padding: const EdgeInsets.only(top: 32, bottom: 16),
-        child: ElevatedButton(
-          onPressed: () async {
-            // Validate will return true if the form is valid, or false if
-            // the form is invalid.
-            if (_formKey.currentState!.validate()) {
-              try {
-                var userCredential = await FirebaseAuth.instance
-                    .signInWithEmailAndPassword(
-                        email: _emailController.text.trim(),
-                        password: _passwordController.text.trim());
+      ElevatedButton(
+        onPressed: () async {
+          // Validate will return true if the form is valid, or false if
+          // the form is invalid.
+          if (_formKey.currentState!.validate()) {
+            try {
+              var userCredential = await FirebaseAuth.instance
+                  .signInWithEmailAndPassword(
+                      email: _emailController.text.trim(),
+                      password: _passwordController.text.trim());
 
-                if (!context.mounted) return;
+              if (!context.mounted) return;
 
-                var user = userCredential.user;
-                if (user != null && (user.displayName?.isNotEmpty ?? false)) {
-                  Navigator.pushReplacementNamed(context, RouteConstants.home);
-                } else {
-                  Navigator.pushReplacementNamed(
-                      context, RouteConstants.onboarding);
-                }
-              } on FirebaseAuthException catch (e) {
-                String message = processLoginError(e);
+              var user = userCredential.user;
+              if (user != null && (user.displayName?.isNotEmpty ?? false)) {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => const HomePage()));
+              } else {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const OnboardingPage()));
+              }
+            } on FirebaseAuthException catch (e) {
+              String message = processLoginError(e);
 
-                setState(() {
-                  _authValidationMessage = message;
-                });
-              } catch (e) {
-                setState(() {
-                  _authValidationMessage =
-                      'Sorry, we encountered an unexpected error during login. Please contact support.';
-                });
+              setState(() {
+                _authValidationMessage = message;
+              });
+            } catch (e) {
+              setState(() {
+                _authValidationMessage =
+                    'Sorry, we encountered an unexpected error during login. Please contact support.';
+              });
 
-                if (kDebugMode) {
-                  print(e);
-                } else {
-                  dev.log('Unexpected error!',
-                      error: e, level: Level.SEVERE.value);
-                }
+              if (kDebugMode) {
+                print(e);
+              } else {
+                dev.log('Unexpected error!',
+                    error: e, level: Level.SEVERE.value);
               }
             }
-          },
-          child: const Text('Submit'),
+          }
+        },
+        child: Text(
+          'Submit',
+          style: Theme.of(context).textTheme.labelLarge,
         ),
       ),
     ];

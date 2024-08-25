@@ -14,12 +14,13 @@ class HomePage extends StatelessWidget {
                     context, RouteConstants.welcome);
               },
               icon: const Icon(Icons.logout))),
-      body: const SafeArea(
+      body: SafeArea(
         child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 64),
-              child: Text("Home Page")),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 64),
+              child: Text('Home Page',
+                  style: Theme.of(context).textTheme.displaySmall)),
         ),
       ),
     );

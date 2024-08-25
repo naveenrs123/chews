@@ -1,3 +1,4 @@
+import 'package:chews/src/pages/reset_password.dart';
 import 'package:chews/src/pages/route_constants.dart';
 import 'package:flutter/material.dart';
 import '../form_components/welcome_button.dart';
@@ -9,38 +10,32 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 64),
-          child: Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 64),
-                child: Column(
-                  children: [
-                    const Text(
-                      'Welcome to Chews!',
-                      style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                    ),
-                    const WelcomeButton(
-                        text: 'Log In', route: RouteConstants.login),
-                    const WelcomeButton(
-                        text: 'Sign Up', route: RouteConstants.signUp),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.restorablePushNamed(
-                              context, RouteConstants.resetPassword);
-                        },
-                        child: const Text('Forgot your password?')),
-                  ],
-                ),
-              ),
-            ],
-          )),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Chews',
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                    fontFamily: 'SunnySpells',
+                    fontSize: 128,
+                    color: const Color(0xFFFF707C))),
+            const WelcomeButton(text: 'Log In', route: RouteConstants.login),
+            const WelcomeButton(text: 'Sign Up', route: RouteConstants.signUp),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+              child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ResetPasswordPage()));
+                  },
+                  child: Text(
+                    'Forgot your password?',
+                    style: Theme.of(context).textTheme.labelLarge,
+                  )),
+            ),
+          ],
         ),
       ),
     ));

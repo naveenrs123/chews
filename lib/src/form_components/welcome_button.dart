@@ -1,3 +1,6 @@
+import 'package:chews/src/pages/login.dart';
+import 'package:chews/src/pages/route_constants.dart';
+import 'package:chews/src/pages/signup.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeButton extends StatelessWidget {
@@ -17,9 +20,17 @@ class WelcomeButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: ElevatedButton(
           onPressed: () {
-            Navigator.restorablePushNamed(context, _route);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => _route == RouteConstants.login
+                        ? const LoginPage()
+                        : const SignUpPage()));
           },
-          child: Text(_text)),
+          child: Text(
+            _text,
+            style: Theme.of(context).textTheme.bodyLarge,
+          )),
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:chews/src/pages/route_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:logging/logging.dart';
 
 class ResetPasswordPage extends StatelessWidget {
@@ -21,26 +22,33 @@ class ResetPasswordPage extends StatelessWidget {
                     context, RouteConstants.welcome);
               },
               icon: const Icon(Icons.arrow_back))),
-      body: const SafeArea(
-        child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 64),
-            child: Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 64),
-                  child: Text(
-                    'Send Password Reset Email',
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                ResetPasswordForm()
-              ],
-            )),
-          ),
+      body: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 64),
+          child: Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                'Reset Password?',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                    fontFamily: 'SunnySpells',
+                    fontSize: 72,
+                    color: const Color(0xFFFF707C)),
+              ),
+              Text('A link will be sent to your email.',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .merge(GoogleFonts.quicksand())),
+              const Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: ResetPasswordForm(),
+              )
+            ],
+          )),
         ),
       ),
     );
@@ -65,41 +73,41 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
     var list = [
       FormTextField(controller: _emailController),
       AuthValidationMessage(message: _authValidationMessage),
-      Padding(
-        padding: const EdgeInsets.only(top: 32, bottom: 16),
-        child: ElevatedButton(
-          onPressed: () async {
-            // Validate will return true if the form is valid, or false if
-            // the form is invalid.
-            if (_formKey.currentState!.validate()) {
-              try {
-                await FirebaseAuth.instance.sendPasswordResetEmail(
-                    email: _emailController.text.trim());
+      ElevatedButton(
+        onPressed: () async {
+          // Validate will return true if the form is valid, or false if
+          // the form is invalid.
+          if (_formKey.currentState!.validate()) {
+            try {
+              await FirebaseAuth.instance
+                  .sendPasswordResetEmail(email: _emailController.text.trim());
 
-                if (!context.mounted) return;
+              if (!context.mounted) return;
 
-                Navigator.restorablePushReplacementNamed(
-                    context, RouteConstants.confirmReset);
-              } on FirebaseAuthException catch (e) {
-                setState(() {
-                  _authValidationMessage = e.message ?? e.code;
-                });
-              } catch (e) {
-                setState(() {
-                  _authValidationMessage =
-                      'Sorry, we encountered an unexpected error during login. Please contact support.';
-                });
+              Navigator.restorablePushReplacementNamed(
+                  context, RouteConstants.login);
+            } on FirebaseAuthException catch (e) {
+              setState(() {
+                _authValidationMessage = e.message ?? e.code;
+              });
+            } catch (e) {
+              setState(() {
+                _authValidationMessage =
+                    'Sorry, we encountered an unexpected error during login. Please contact support.';
+              });
 
-                if (kDebugMode) {
-                  print(e);
-                } else {
-                  dev.log('Unexpected error!',
-                      error: e, level: Level.SEVERE.value);
-                }
+              if (kDebugMode) {
+                print(e);
+              } else {
+                dev.log('Unexpected error!',
+                    error: e, level: Level.SEVERE.value);
               }
             }
-          },
-          child: const Text('Submit'),
+          }
+        },
+        child: Text(
+          'Submit',
+          style: Theme.of(context).textTheme.labelLarge,
         ),
       ),
     ];
