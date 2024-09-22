@@ -12,7 +12,20 @@
           "package_name": "com.example.chews"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "837798840636-5qfrdbt6jvj017d2k7480l44qg0s6tvq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chews",
+            "certificate_hash": "8d8078f8e6f445f9d36f09cadb16251a8e0c0180"
+          }
+        },
+        {
+          "client_id": "837798840636-eftbav50dduqlpe13pe8njnq882tmalv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC2OCIxx688eQ5WhIR9n-bvUuaNe_rs8tk"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "837798840636-eftbav50dduqlpe13pe8njnq882tmalv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "837798840636-qlftdv4ia0kegnpamhd06rvtmmq119mv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.chews"
+              }
+            }
+          ]
         }
       }
     }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>837798840636-qlftdv4ia0kegnpamhd06rvtmmq119mv.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.837798840636-qlftdv4ia0kegnpamhd06rvtmmq119mv</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>837798840636-5qfrdbt6jvj017d2k7480l44qg0s6tvq.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDN3dMuLGfgPjjky6oJMNB3OaA75yDBiyA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>837798840636</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.chews</string>
+	<key>PROJECT_ID</key>
+	<string>chews-2ba9e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>chews-2ba9e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:837798840636:ios:c0ebfdafb603f2fcefb639</string>
+</dict>
+</plist>

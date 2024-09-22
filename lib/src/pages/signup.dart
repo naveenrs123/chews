@@ -3,7 +3,6 @@ import 'dart:developer' as dev;
 import 'package:chews/src/form_components/auth_validation_message.dart';
 import 'package:chews/src/form_components/form_text_field.dart';
 import 'package:chews/src/pages/onboarding.dart';
-import 'package:chews/src/pages/route_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

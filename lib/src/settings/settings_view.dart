@@ -1,4 +1,3 @@
-import 'package:chews/src/pages/route_constants.dart';
 import 'package:chews/src/pages/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
