@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "chews": "chews-2ba9e",
+    "default": "chews-2ba9e"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}

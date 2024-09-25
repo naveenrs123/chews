@@ -33,4 +33,8 @@ apps](https://flutter.dev/docs/development/accessibility-and-localization/intern
 Instructions can be found [here](https://firebase.google.com/docs/flutter/setup).
 
 ### Authentication
-https://firebase.google.com/docs/auth/flutter/start
+- https://firebase.google.com/docs/auth/flutter/start
+
+### Emulators
+- https://firebase.google.com/docs/emulator-suite
+- https://firebase.google.com/docs/emulator-suite/connect_auth
