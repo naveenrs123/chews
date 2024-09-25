@@ -1,5 +1,7 @@
+import 'package:chews/src/form_components/form_text_field.dart';
 import 'package:chews/src/pages/route_constants.dart';
 import 'package:chews/src/pages/welcome.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -38,9 +40,73 @@ class OnboardingPage extends StatelessWidget {
                         fontFamily: 'SunnySpells',
                         color: const Color(0xFFFF707C)),
                   ),
+                  const OnboardingForm(),
                 ],
               ),
             )),
+      ),
+    );
+  }
+}
+
+class OnboardingForm extends StatefulWidget {
+  const OnboardingForm({super.key});
+
+  @override
+  State<OnboardingForm> createState() => _OnboardingFormState();
+}
+
+class _OnboardingFormState extends State<OnboardingForm> {
+  getUserDisplayName() {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user?.displayName != null) {
+      return user!.displayName;
+    } else if (user != null && user.providerData.isNotEmpty) {
+      return user.providerData.first.displayName;
+    } else {
+      return null;
+    }
+  }
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _displayTextController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    var list = [
+      FormTextField(
+        controller: _displayTextController,
+        hintText: 'Enter your display name',
+        emptyValidationText: 'Display name cannot be empty',
+        initialValue: getUserDisplayName(),
+      ),
+      ElevatedButton(
+        onPressed: () async {
+          // Validate will return true if the form is valid, or false if
+          // the form is invalid.
+          if (_formKey.currentState!.validate()) {
+            await FirebaseAuth.instance.currentUser!
+                .updateDisplayName(_displayTextController.text.trim());
+
+            if (!context.mounted) return;
+          }
+        },
+        child: Text(
+          'Update Display Name',
+          style: Theme.of(context).textTheme.labelLarge,
+        ),
+      ),
+    ];
+
+    var children = list;
+
+    return Form(
+      key: _formKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: children,
       ),
     );
   }
