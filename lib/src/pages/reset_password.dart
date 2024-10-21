@@ -2,6 +2,7 @@ import 'dart:developer' as dev;
 
 import 'package:chews/src/form_components/auth_validation_message.dart';
 import 'package:chews/src/form_components/form_text_field.dart';
+import 'package:chews/src/pages/login.dart';
 import 'package:chews/src/pages/route_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -84,8 +85,10 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
 
               if (!context.mounted) return;
 
-              Navigator.restorablePushReplacementNamed(
-                  context, RouteConstants.login);
+              Navigator.restorablePushReplacement(
+                  context,
+                  (context, args) => MaterialPageRoute(
+                      builder: (context) => const LoginPage()));
             } on FirebaseAuthException catch (e) {
               setState(() {
                 _authValidationMessage = e.message ?? e.code;

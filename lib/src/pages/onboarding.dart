@@ -1,4 +1,5 @@
 import 'package:chews/src/form_components/form_text_field.dart';
+import 'package:chews/src/pages/home.dart';
 import 'package:chews/src/pages/route_constants.dart';
 import 'package:chews/src/pages/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,8 +21,10 @@ class OnboardingPage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const WelcomePage()));
+              Navigator.restorablePushReplacement(
+                  context,
+                  (context, args) => MaterialPageRoute(
+                      builder: (context) => const WelcomePage()));
             },
           ),
         ],
@@ -35,6 +38,7 @@ class OnboardingPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
+                    textAlign: TextAlign.start,
                     'Let\'s get you set up!',
                     style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                         fontFamily: 'SunnySpells',
@@ -90,6 +94,11 @@ class _OnboardingFormState extends State<OnboardingForm> {
                 .updateDisplayName(_displayTextController.text.trim());
 
             if (!context.mounted) return;
+
+            Navigator.restorablePushReplacement(
+                context,
+                (context, args) =>
+                    MaterialPageRoute(builder: (context) => const HomePage()));
           }
         },
         child: Text(

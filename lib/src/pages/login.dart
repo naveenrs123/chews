@@ -82,12 +82,14 @@ class _LoginFormState extends State<LoginForm> {
 
               var user = userCredential.user;
               if (user != null && (user.displayName?.isNotEmpty ?? false)) {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const HomePage()));
-              } else {
-                Navigator.pushReplacement(
+                Navigator.restorablePushReplacement(
                     context,
-                    MaterialPageRoute(
+                    (context, args) => MaterialPageRoute(
+                        builder: (context) => const HomePage()));
+              } else {
+                Navigator.restorablePushReplacement(
+                    context,
+                    (context, args) => MaterialPageRoute(
                         builder: (context) => const OnboardingPage()));
               }
             } on FirebaseAuthException catch (e) {

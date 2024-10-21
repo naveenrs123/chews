@@ -1,3 +1,4 @@
+import 'package:chews/src/pages/home.dart';
 import 'package:chews/src/pages/onboarding.dart';
 import 'package:chews/src/pages/reset_password.dart';
 import 'package:chews/src/pages/route_constants.dart';
@@ -30,43 +31,23 @@ class WelcomePage extends StatelessWidget {
                     const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
                 child: ElevatedButton(
                     onPressed: () async {
-                      if (kIsWeb) {
-                        GoogleAuthProvider googleProvider =
-                            GoogleAuthProvider();
-
-                        googleProvider.addScope(
-                            'https://www.googleapis.com/auth/contacts.readonly');
-                        googleProvider.setCustomParameters(
-                            {'login_hint': 'user@example.com'});
-
-                        await FirebaseAuth.instance
-                            .signInWithPopup(googleProvider);
-                      } else {
-                        // Trigger the authentication flow
-                        final GoogleSignInAccount? googleUser =
-                            await GoogleSignIn().signIn();
-
-                        // Obtain the auth details from the request
-                        final GoogleSignInAuthentication? googleAuth =
-                            await googleUser?.authentication;
-
-                        // Create a new credential
-                        final credential = GoogleAuthProvider.credential(
-                          accessToken: googleAuth?.accessToken,
-                          idToken: googleAuth?.idToken,
-                        );
-
-                        // Once signed in, return the UserCredential
-                        await FirebaseAuth.instance
-                            .signInWithCredential(credential);
-                      }
+                      UserCredential userCredential = await signInWithGoogle();
 
                       if (!context.mounted) return;
 
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const OnboardingPage()));
+                      var user = userCredential.user;
+                      if (user != null &&
+                          (user.displayName?.isNotEmpty ?? false)) {
+                        Navigator.restorablePushReplacement(
+                            context,
+                            (context, args) => MaterialPageRoute(
+                                builder: (context) => const HomePage()));
+                      } else {
+                        Navigator.restorablePushReplacement(
+                            context,
+                            (context, args) => MaterialPageRoute(
+                                builder: (context) => const OnboardingPage()));
+                      }
                     },
                     child: Text(
                       'Sign in with Google',
@@ -90,5 +71,39 @@ class WelcomePage extends StatelessWidget {
         ),
       ),
     ));
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    UserCredential userCredential;
+
+    if (kIsWeb) {
+      GoogleAuthProvider googleProvider = GoogleAuthProvider();
+
+      googleProvider
+          .addScope('https://www.googleapis.com/auth/contacts.readonly');
+      googleProvider.setCustomParameters({'login_hint': 'user@example.com'});
+
+      userCredential =
+          await FirebaseAuth.instance.signInWithPopup(googleProvider);
+    } else {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+      userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+    }
+
+    return userCredential;
   }
 }
