@@ -35,17 +35,19 @@ class WelcomePage extends StatelessWidget {
 
                       if (!context.mounted) return;
 
+                      Navigator.popUntil(context, (route) => route.isFirst);
+
                       var user = userCredential.user;
                       if (user != null &&
                           (user.displayName?.isNotEmpty ?? false)) {
-                        Navigator.restorablePushReplacement(
+                        Navigator.pushReplacement(
                             context,
-                            (context, args) => MaterialPageRoute(
+                            MaterialPageRoute(
                                 builder: (context) => const HomePage()));
                       } else {
-                        Navigator.restorablePushReplacement(
+                        Navigator.pushReplacement(
                             context,
-                            (context, args) => MaterialPageRoute(
+                            MaterialPageRoute(
                                 builder: (context) => const OnboardingPage()));
                       }
                     },

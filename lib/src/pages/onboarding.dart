@@ -21,10 +21,9 @@ class OnboardingPage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              Navigator.restorablePushReplacement(
-                  context,
-                  (context, args) => MaterialPageRoute(
-                      builder: (context) => const WelcomePage()));
+              Navigator.popUntil(context, (route) => route.isFirst);
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const WelcomePage()));
             },
           ),
         ],
@@ -95,10 +94,9 @@ class _OnboardingFormState extends State<OnboardingForm> {
 
             if (!context.mounted) return;
 
-            Navigator.restorablePushReplacement(
-                context,
-                (context, args) =>
-                    MaterialPageRoute(builder: (context) => const HomePage()));
+            Navigator.popUntil(context, (route) => route.isFirst);
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const HomePage()));
           }
         },
         child: Text(

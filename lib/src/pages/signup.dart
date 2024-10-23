@@ -94,9 +94,10 @@ class _SignUpFormState extends State<SignUpForm> {
 
                   if (!context.mounted) return;
 
-                  Navigator.restorablePushReplacement(
+                  Navigator.popUntil(context, (route) => route.isFirst);
+                  Navigator.pushReplacement(
                       context,
-                      (context, args) => MaterialPageRoute(
+                      MaterialPageRoute(
                           builder: (context) => const OnboardingPage()));
                 } on FirebaseAuthException catch (e) {
                   String message = processSignUpError(e);

@@ -15,7 +15,7 @@ void main() async {
   );
 
   // Uncomment only during local development
-  // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
 
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.

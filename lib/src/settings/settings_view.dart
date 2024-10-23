@@ -32,9 +32,10 @@ class SettingsView extends StatelessWidget {
 
                 if (!context.mounted) return;
 
-                Navigator.restorablePushReplacement(
+                Navigator.popUntil(context, (route) => route.isFirst);
+                Navigator.pushReplacement(
                     context,
-                    (context, args) => MaterialPageRoute(
+                    MaterialPageRoute(
                         builder: (context) => const WelcomePage()));
               },
               icon: const Icon(Icons.logout))

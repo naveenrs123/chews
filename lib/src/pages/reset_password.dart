@@ -19,8 +19,7 @@ class ResetPasswordPage extends StatelessWidget {
       appBar: AppBar(
           leading: IconButton(
               onPressed: () {
-                Navigator.restorablePopAndPushNamed(
-                    context, RouteConstants.welcome);
+                Navigator.pop(context);
               },
               icon: const Icon(Icons.arrow_back))),
       body: SingleChildScrollView(
@@ -85,10 +84,9 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
 
               if (!context.mounted) return;
 
-              Navigator.restorablePushReplacement(
-                  context,
-                  (context, args) => MaterialPageRoute(
-                      builder: (context) => const LoginPage()));
+              Navigator.popUntil(context, (route) => route.isFirst);
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()));
             } on FirebaseAuthException catch (e) {
               setState(() {
                 _authValidationMessage = e.message ?? e.code;
