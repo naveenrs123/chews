@@ -39,6 +39,15 @@ Instructions can be found [here](https://firebase.google.com/docs/flutter/setup)
 - https://firebase.google.com/docs/emulator-suite
 - https://firebase.google.com/docs/emulator-suite/connect_auth
 
+### Cloud Functions
+Instructions [here](https://firebase.google.com/docs/functions/get-started?gen=2nd#python_3)
+1. Install `firebase-tools`
+2. Run `firebase login` if not already logged in
+3. Install latest Python
+    * NOTE: runtime defaults to python3.12, but WSL uses 3.11 latest. We still have to figure this out, but for now we add `"runtime": "python3[x]"` to firebase.json, where `x` is either 11 (WSL) or 12 (Linux, Mac).
+4. In the `functions` directory, run `. venv/bin/activate && python[n] -m pip install -r requirements.txt'` (whatever your python command is, e.g. `python3.11`)
+5. Run `firebase emulators:start`
+
 ## APIs
 
 ### Google Places API
