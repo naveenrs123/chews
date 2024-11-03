@@ -52,7 +52,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '837798840636',
     projectId: 'chews-2ba9e',
     authDomain: 'chews-2ba9e.firebaseapp.com',
-    storageBucket: 'chews-2ba9e.appspot.com',
+    storageBucket: 'chews-2ba9e.firebasestorage.app',
     measurementId: 'G-Q0GSTHNM6L',
   );
 
@@ -61,7 +61,7 @@ class DefaultFirebaseOptions {
     appId: '1:837798840636:android:f7fae84d0b93cc21efb639',
     messagingSenderId: '837798840636',
     projectId: 'chews-2ba9e',
-    storageBucket: 'chews-2ba9e.appspot.com',
+    storageBucket: 'chews-2ba9e.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -69,7 +69,9 @@ class DefaultFirebaseOptions {
     appId: '1:837798840636:ios:c0ebfdafb603f2fcefb639',
     messagingSenderId: '837798840636',
     projectId: 'chews-2ba9e',
-    storageBucket: 'chews-2ba9e.appspot.com',
+    storageBucket: 'chews-2ba9e.firebasestorage.app',
+    androidClientId: '837798840636-5qfrdbt6jvj017d2k7480l44qg0s6tvq.apps.googleusercontent.com',
+    iosClientId: '837798840636-qlftdv4ia0kegnpamhd06rvtmmq119mv.apps.googleusercontent.com',
     iosBundleId: 'com.example.chews',
   );
 
