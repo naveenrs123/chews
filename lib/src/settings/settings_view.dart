@@ -1,6 +1,5 @@
-import 'package:chews/src/form_components/form_text_field.dart';
-import 'package:chews/src/pages/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'settings_controller.dart';
@@ -19,12 +18,6 @@ class SettingsView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
         actions: [
           IconButton(
               onPressed: () async {
@@ -33,10 +26,6 @@ class SettingsView extends StatelessWidget {
                 if (!context.mounted) return;
 
                 Navigator.popUntil(context, (route) => route.isFirst);
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const WelcomePage()));
               },
               icon: const Icon(Icons.logout))
         ],
@@ -69,71 +58,26 @@ class SettingsView extends StatelessWidget {
                 )
               ],
             ),
-            const UserSettingsForm()
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute<ProfileScreen>(
+                          builder: (context) => ProfileScreen(
+                                appBar: AppBar(
+                                  title: const Text('User Profile'),
+                                ),
+                                actions: [
+                                  SignedOutAction((context) {
+                                    Navigator.popUntil(
+                                        context, (route) => route.isFirst);
+                                  })
+                                ],
+                              )));
+                },
+                child: const Text('Profile'))
           ],
         ),
-      ),
-    );
-  }
-}
-
-class UserSettingsForm extends StatefulWidget {
-  const UserSettingsForm({super.key});
-
-  @override
-  State<UserSettingsForm> createState() => _UserSettingsFormState();
-}
-
-class _UserSettingsFormState extends State<UserSettingsForm> {
-  getUserDisplayName() {
-    final user = FirebaseAuth.instance.currentUser;
-
-    if (user?.displayName != null) {
-      return user!.displayName;
-    } else if (user != null && user.providerData.isNotEmpty) {
-      return user.providerData.first.displayName;
-    } else {
-      return null;
-    }
-  }
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _displayTextController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    var list = [
-      const Text('Display Name'),
-      FormTextField(
-        controller: _displayTextController,
-        hintText: 'Enter your display name',
-        emptyValidationText: 'Display name cannot be empty',
-        initialValue: getUserDisplayName(),
-      ),
-      ElevatedButton(
-        onPressed: () async {
-          // Validate will return true if the form is valid, or false if
-          // the form is invalid.
-          if (_formKey.currentState!.validate()) {
-            await FirebaseAuth.instance.currentUser!
-                .updateDisplayName(_displayTextController.text.trim());
-          }
-        },
-        child: Text(
-          'Update User Settings',
-          style: Theme.of(context).textTheme.labelLarge,
-        ),
-      ),
-    ];
-
-    var children = list;
-
-    return Form(
-      key: _formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: children,
       ),
     );
   }

@@ -1,10 +1,6 @@
+import 'package:chews/src/pages/auth_gate.dart';
 import 'package:chews/src/pages/home.dart';
-import 'package:chews/src/pages/login.dart';
-import 'package:chews/src/pages/onboarding.dart';
-import 'package:chews/src/pages/reset_password.dart';
 import 'package:chews/src/pages/route_constants.dart';
-import 'package:chews/src/pages/signup.dart';
-import 'package:chews/src/pages/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -74,24 +70,15 @@ class MyApp extends StatelessWidget {
                 switch (routeSettings.name) {
                   case RouteConstants.settings:
                     return SettingsView(controller: settingsController);
-                  case RouteConstants.login:
-                    return const LoginPage();
-                  case RouteConstants.signUp:
-                    return const SignUpPage();
-                  case RouteConstants.home:
-                    return const HomePage();
-                  case RouteConstants.onboarding:
-                    return const OnboardingPage();
-                  case RouteConstants.resetPassword:
-                    return const ResetPasswordPage();
-                  case RouteConstants.welcome:
                   default:
-                    return const WelcomePage();
+                    return const HomePage();
                 }
               },
             );
           },
+          home: const AuthGate(),
         );
+
       },
     );
   }
